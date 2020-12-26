@@ -2,6 +2,7 @@ const UserModel = require('../models/user');
 const User = new UserModel
 
 let register = (req, res) => {
+    console.log(req.body)
     try{
         var { email, passwords } = req.body;
         var user = {
@@ -23,8 +24,11 @@ let register = (req, res) => {
 let login = (req, res) => {
     try {
         var { email, passwords } = req.body;
+        console.log(req.body)
         User.getByEmail(email, async (err, data) => {
-            if (err) res.status(500).send({ success: 0, err })
+            if (err) {res.status(500).send({ success: 0, err })
+            console.log(email)
+        }
             else {
                 var user = data.rows[0]
                 if (!user) res.status(500).send({ success: 0, error: 'Email not found' })

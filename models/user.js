@@ -1,5 +1,5 @@
 const { Pool, Client } = require("pg");
-var connectionString = "postgres://postgres:123@localhost:5432/Ouchi";
+var connectionString = "postgres://postgres:postgres@localhost:5432/postgres";
 var pool = new Pool({
     connectionString: connectionString,
 })
@@ -21,8 +21,8 @@ class User {
     }
 
     createNewUser(user,callback){
-        pool.query(`INSERT INTO users (email, passwords)
-        VALUES ('${user.email}', '${user.passwords}')`,(err,data)=>{
+        // console.log(`INSERT INTO users (email, passwords) VALUES ('${user.email}', '${user.passwords}')
+        pool.query(`INSERT INTO users (email, passwords) VALUES ('${user.email}', '${user.passwords}')`,(err,data)=>{
             callback(err,data)
         })
     }
