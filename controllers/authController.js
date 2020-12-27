@@ -3,20 +3,20 @@ const User = new UserModel
 
 let register = (req, res) => {
     console.log(req.body)
-    try{
+    try {
         var { email, passwords } = req.body;
         var user = {
-            email : email,
-            passwords : passwords
+            email: email,
+            passwords: passwords
         }
-        User.createNewUser(user,(err,data)=>{
-            if(err) res.status(500).send({success: 0, message: "error"})
+        User.createNewUser(user, (err, data) => {
+            if (err) res.status(500).send({ success: 0, message: "error" })
             else {
-                res.status(201).send({success:1, user : user})
+                res.status(201).send({ success: 1, user: user })
             }
         })
     }
-    catch{
+    catch {
         return res.status(500).json(error);
     }
 }
@@ -26,15 +26,16 @@ let login = (req, res) => {
         var { email, passwords } = req.body;
         console.log(req.body)
         User.getByEmail(email, async (err, data) => {
-            if (err) {res.status(500).send({ success: 0, err })
-            console.log(email)
-        }
+            if (err) {
+                console.log(email)
+                res.status(500).send({ success: 0, err })
+            }
             else {
                 var user = data.rows[0]
                 if (!user) res.status(500).send({ success: 0, error: 'Email not found' })
                 else {
                     if (passwords === user.passwords) {
-                        res.status(200).send({ success: 1, userName: data.rows[0]})
+                        res.status(200).send({ success: 1, userName: data.rows[0] })
                     }
                     else res.status(500).send({ success: 0, error: 'Password incorrect' })
                 }
