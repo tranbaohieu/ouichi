@@ -2,6 +2,7 @@ create table users(
     id SERIAL,
     email varchar(20) not null,
     passwords varchar(20) not null,
+    rooms int[],
     PRIMARY KEY (id)
 );
 
@@ -27,13 +28,13 @@ create table furniture(
 );
 
 select * from users 
-where email = 'trihieu@gmail.com'
+where email = 'trihieu@gmail.com';
 
 INSERT INTO users (email, passwords)
 VALUES ('trihieua2@gmail.com', '123456');
 
 
-select * from room 
+select * from room ;
 
 INSERT INTO room (type, descriptions, userId)
 VALUES ( 1, 'trihieua2@gmail.com', 1);

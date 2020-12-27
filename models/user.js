@@ -27,6 +27,24 @@ class User {
         })
     }
 
+    updateRooms(user, callback){
+        pool.query(`UPDATE users SET rooms = '${user.rooms}'  WHERE email = '${user.email}';`,(err,data)=>{
+            callback(err,data)
+        })
+    }
+
+    getRoomsByUser(user, callback){
+        pool.query(`SELECT rooms FROM users WHERE email = '${user.email}' AND passwords = '${user.passwords}';`,(err,data)=>{
+            callback(err,data)
+        })
+    }
+
+    addRoomByUser(user, room, callback){
+        pool.query(`UPDATE users SET rooms = array_append(rooms, ${room}) WHERE email = '${user.email}' AND passwords = '${user.passwords}';`,(err,data)=>{
+            callback(err,data)
+        })
+    }
+
     getById(id, callback) {
         callback(err, true)
     }
