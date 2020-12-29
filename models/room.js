@@ -23,6 +23,12 @@ class Room {
     getById(id, callback) {
         callback(err, true)
     }
+
+    getSavedRoom(email, callback){
+        pool.query(`select * from depend where depend.email = '${email}'`, (err, data)=>{
+            callback(err, data)
+        })
+    }
 }
 module.exports = Room ;
 

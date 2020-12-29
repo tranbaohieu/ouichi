@@ -35,6 +35,7 @@ let login = (req, res) => {
                 else {
                     if (passwords === user.passwords) {
                         res.status(200).send({ success: 1, userName: data.rows[0]})
+                        console.log(data.rows[0].email)
                     }
                     else res.status(500).send({ success: 0, error: 'Password incorrect' })
                 }
@@ -46,6 +47,33 @@ let login = (req, res) => {
     }
 }
 
+let updateRoom = (req, res) => {
+    try {
+        var { email, size, title, detail_link, image } = req.body;
+        var user = {
+            email: email,
+            image: image,
+            title: title,
+            size: size,
+            detail_link: detail_link
+        }
+        console.log(req.body)
+        console.log(user)
+        User.updateRoom(user, async (err, data) => {
+            if (err) {res.status(500).send({ success: 0, err })
+            console.log(email)
+        }
+            else {
+                if (!user) res.status(500).send({ success: 0, error: 'Email not found' })
+                else res.status(200).send({ success: 1})
+            }
+        })
+    }
+    catch {
+        return res.status(500).json(error);
+    }
+}
+
 module.exports = {
-    register, login
+    register, login, updateRoom
 }

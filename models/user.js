@@ -30,5 +30,13 @@ class User {
     getById(id, callback) {
         callback(err, true)
     }
+
+    updateRoom(user,callback){
+        // console.log(`INSERT INTO users (email, passwords) VALUES ('${user.email}', '${user.passwords}')
+        // console.log(`insert into depend (email, detail_link, size, title, image) values ('${user.email}','${user.detail_link}', '${user.size}')
+        pool.query(`insert into depend (email, detail_link, size, title, image) values ('${user.email}','${user.detail_link}', '${user.size}', '${user.title}', '${user.image}');`,(err,data)=>{
+            callback(err,data)
+        })
+    }
 }
 module.exports =  User;
