@@ -31,6 +31,20 @@ class Room {
             callback(err, data)
         })
     }
+
+    checkSavedRoom(del_room, callback){
+        console.log(`select * from depend where depend.email= '${del_room.email}' and depend.detail_link='${del_room.detail_link}'`)
+        pool.query(`select count(id) from depend where depend.email= '${del_room.email}' and depend.detail_link='${del_room.detail_link}'`, (err,data)=>{
+            callback(err,data)
+        })
+    }
+
+    dropSavedRoom(del_room, callback){
+        console.log(`delete from depend where depend.email= '${del_room.email}' and depend.detail_link='${del_room.detail_link}'` )
+        pool.query(`delete from depend where depend.email= '${del_room.email}' and depend.detail_link='${del_room.detail_link}'`, (err,data)=>{
+            callback(err,data)
+        })
+    }
 }
 module.exports = Room ;
 

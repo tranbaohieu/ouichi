@@ -22,6 +22,36 @@ let getSavedRoom =(req,res)=>{
     })
 }
 
+let checkSavedRoom=(req,res)=>{
+    var {email, detail_link} = req.body;
+    console.log(req.body);
+    var del_room = {
+        email: email,
+        detail_link: detail_link
+    }
+    room.checkSavedRoom(del_room, async (err, data)=>{
+        if (data.rows[0].count == "0") res.status(500).send({success: false})
+        else{
+            res.status(201).send({success: true})
+        }
+    })
+}
+
+let dropSavedRoom=(req,res)=>{
+    var {email, detail_link} = req.body;
+    console.log(req.body);
+    var del_room = {
+        email: email,
+        detail_link: detail_link
+    }
+    room.dropSavedRoom(del_room, async (err, data)=>{
+        if (err) res.status(500).send({success:false})
+        else{
+            res.status(201).send({success:true})
+        }
+    })
+}
+
 module.exports = {
-    index, getSavedRoom
+    index, getSavedRoom, checkSavedRoom, dropSavedRoom
 }
